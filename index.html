@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>PAI Kelas 5 Bab 5 - Meneladani Perjuangan Rasulullah saw.</title>
+  <!-- Google Fonts: Fredoka (Display) & Nunito (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            sand: '#FFFBEB',
+            emeraldDeep: '#047857',
+            emeraldMid: '#059669',
+            skyDeep: '#0369A1',
+            skyMid: '#0284C7',
+            goldWarm: '#F59E0B',
+            orangeCta: '#EA580C',
+            ink: '#1E293B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-main: #FFFBEB;
+      --primary: #059669;
+      --secondary: #0284C7;
+      --accent: #F59E0B;
+      --cta: #EA580C;
+      --text-dark: #1E293B;
+      --transition-speed: 0.25s;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    @media (min-width: 768px) {
+      body { font-size: 18px; }
+    }
+    @media (min-width: 1440px) {
+      body { font-size: 21px; } /* Optimal untuk Papan Interaktif / FID */
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', sans-serif;
+      letter-spacing: 0.01em;
+    }
+
+    /* Target sentuh ramah FID & Mobile */
+    .touch-target {
+      min-height: 54px;
+      min-width: 54px;
+      transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    }
+    @media (min-width: 1280px) {
+      .touch-target {
+        min-height: 60px;
+        min-width: 60px;
+      }
+    }
+
+    .touch-target:active {
+      transform: scale(0.97);
+    }
+
+    /* Animasi Feedback Ringan */
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes gentleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim-bounce { animation: gentleBounce 0.45s ease; }
+    .anim-shake { animation: gentleShake 0.35s ease; }
+    .page-enter { animation: fadeSlideIn 0.3s ease forwards; }
+
+    /* Custom Scrollbar untuk Navigasi Horizontal */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Grid Word Search */
+    .word-cell {
+      user-select: none;
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-slate-900">
+
+  <!-- TOP HEADER & STATUS BAR (Muncul di semua halaman kecuali Cover penuh, tetap bisa diakses) -->
+  <header id="main-header" class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b-2 border-emerald-200 shadow-sm hidden">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+      <!-- Identitas Singkat -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-display font-bold text-xl shadow-sm">
+          5
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-wider text-emerald-700">PAI Kelas 5 • Fase C</p>
+          <h1 class="font-display text-base sm:text-lg font-bold text-slate-800 leading-tight">Perjuangan Rasulullah saw.</h1>
+        </div>
+      </div>
+
+      <!-- Skor, Bintang & Kontrol Suara -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="toggleSpeech()" id="btn-tts" title="Bacakan Teks" class="touch-target px-3 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold text-sm flex items-center gap-1.5 border border-sky-300">
+          <span id="tts-icon">🔊</span>
+          <span class="hidden sm:inline" id="tts-label">Suara</span>
+        </button>
+
+        <div class="px-3.5 py-2 rounded-xl bg-amber-100 border border-amber-300 flex items-center gap-1.5 font-bold text-amber-900 text-sm sm:text-base">
+          <span>⭐</span>
+          <span id="global-stars">0</span>
+          <span class="hidden md:inline text-xs font-semibold">Poin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU UTAMA NAVIGASI (9 Item Wajib) -->
+    <nav aria-label="Menu Utama" class="bg-emerald-700 text-white px-2 sm:px-6 py-1.5 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2 min-w-max" id="nav-container">
+        <!-- Diisi via JS -->
+      </div>
+    </nav>
+  </header>
+
+  <!-- KONTEN UTAMA DINAMIS -->
+  <main id="app-content" class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
+    <!-- Halaman dirender di sini -->
+  </main>
+
+  <!-- FOOTER NAVIGASI KONSISTEN (Back / Next) -->
+  <footer id="main-footer" class="bg-white border-t-2 border-amber-200 py-3 px-4 sm:px-6 hidden">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+      <button id="btn-prev" onclick="navigatePrev()" class="touch-target px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold flex items-center gap-2 border-2 border-slate-300">
+        <span>⬅️</span>
+        <span>Sebelumnya</span>
+      </button>
+
+      <!-- Progress Bar Keseluruhan -->
+      <div class="hidden sm:flex flex-col items-center flex-1 max-w-md mx-4">
+        <div class="w-full flex justify-between text-xs font-bold text-slate-600 mb-1">
+          <span>Progres Belajar</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div id="progress-bar-fill" class="h-full bg-emerald-500 transition-all duration-300 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <button id="btn-next" onclick="navigateNext()" class="touch-target px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold flex items-center gap-2 shadow-md border-b-4 border-amber-700">
+        <span>Selanjutnya</span>
+        <span>➡️</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- MODAL NOTIFIKASI KUSTOM (Pengganti alert/confirm) -->
+  <div id="custom-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border-4 border-amber-400 shadow-2xl text-center page-enter">
+      <div id="modal-emoji" class="text-5xl mb-3">🌟</div>
+      <h3 id="modal-title" class="font-display text-2xl font-bold text-slate-800 mb-2">Judul Pesan</h3>
+      <p id="modal-body" class="text-slate-700 mb-6 leading-relaxed">Isi pesan.</p>
+      <div id="modal-actions" class="flex justify-center gap-3">
+        <button onclick="closeModal()" class="touch-target px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow">
+          Mengerti!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. STATE & DATA PEMBELAJARAN (KURIKULUM MERDEKA - PAI KELAS 5 BAB 5)
+       ========================================================================== */
+    const STORAGE_KEY = 'pai_kls5_bab5_aburami_v1';
+
+    const PAGES = [
+      { id: 'beranda', label: 'Beranda', icon: '🏠' },
+      { id: 'materi', label: 'Materi', icon: '📖' },
+      { id: 'aktivitas', label: 'Aktivitas', icon: '🎯' },
+      { id: 'game', label: 'Game', icon: '🎮' },
+      { id: 'latihan', label: 'Latihan', icon: '📝' },
+      { id: 'kuis', label: 'Kuis', icon: '❓' },
+      { id: 'hasil', label: 'Hasil', icon: '🏆' },
+      { id: 'refleksi', label: 'Refleksi', icon: '💭' },
+      { id: 'petunjuk', label: 'Petunjuk', icon: '📋' }
+    ];
+
+    let appState = {
+      currentPage: 'beranda',
+      visitedPages: ['beranda'],
+      stars: 0,
+      materiTab: 0, // 0: Apersepsi & Video, 1: Fathu Makkah, 2: Haji Wada, 3: Hikmah
+      activityCompleted: false,
+      activityPlacements: {},
+      gameFoundWords: [],
+      gameScore: 0,
+      practiceAnswers: {},
+      quizState: {
+        started: false,
+        finished: false,
+        questions: [],
+        currentIndex: 0,
+        userAnswers: [],
+        score: 0,
+        startTime: null,
+        elapsedSeconds: 0
+      },
+      reflection: {
+        mood: '',
+        liked: '',
+        difficult: '',
+        nextStep: '',
+        submitted: false
+      }
+    };
+
+    // Muat progres dari localStorage
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          appState = { ...appState, ...parsed };
+        }
+      } catch (e) {
+        console.warn('Gagal memuat penyimpanan lokal:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.warn('Gagal menyimpan progres:', e);
+      }
+      updateHeaderUI();
+    }
+
+    /* ==========================================================================
+       2. KOMPONEN MASKOT KARAKTER SVG (ZAID & ZAHRA - FLAT DESIGN CERIA)
+       ========================================================================== */
+    function getMascotSVG(character = 'zaid', expression = 'happy', sizeClass = 'w-28 h-28') {
+      // Ekspresi mulut & alis
+      let mouth = `<path d="M42 63 Q50 72 58 63" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      let leftBrow = `<path d="M36 44 Q41 41 45 44" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+      let rightBrow = `<path d="M55 44 Q59 41 64 44" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+
+      if (expression === 'think') {
+        mouth = `<circle cx="52" cy="65" r="4" fill="#1E293B"/>`;
+        leftBrow = `<path d="M36 45 Q41 44 45 45" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+        rightBrow = `<path d="M55 41 Q59 38 64 42" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+      } else if (expression === 'proud') {
+        mouth = `<path d="M39 61 Q50 75 61 61 Z" fill="#EF4444" stroke="#1E293B" stroke-width="2.5"/>`;
+      } else if (expression === 'amazed') {
+        mouth = `<ellipse cx="50" cy="65" rx="5" ry="6" fill="#1E293B"/>`;
+        leftBrow = `<path d="M35 41 Q41 37 46 41" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+        rightBrow = `<path d="M54 41 Q59 37 65 41" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+      }
+
+      if (character === 'zahra') {
+        return `
+          <svg viewBox="0 0 100 100" class="${sizeClass} shrink-0 drop-shadow-sm" aria-label="Maskot Zahra">
+            <!-- Hijab Luar -->
+            <path d="M22 48 C22 20, 78 20, 78 48 L84 85 C65 92, 35 92, 16 85 Z" fill="#0284C7"/>
+            <path d="M26 48 C26 25, 74 25, 74 48 L78 82 C62 88, 38 88, 22 82 Z" fill="#38BDF8"/>
+            <!-- Wajah -->
+            <circle cx="50" cy="52" r="21" fill="#FDE68A"/>
+            <!-- Pipi Merah -->
+            <circle cx="37" cy="57" r="3.5" fill="#FCA5A5" opacity="0.7"/>
+            <circle cx="63" cy="57" r="3.5" fill="#FCA5A5" opacity="0.7"/>
+            <!-- Mata -->
+            <circle cx="41" cy="50" r="3" fill="#1E293B"/>
+            <circle cx="59" cy="50" r="3" fill="#1E293B"/>
+            <circle cx="42" cy="49" r="1" fill="#FFFFFF"/>
+            <circle cx="60" cy="49" r="1" fill="#FFFFFF"/>
+            ${leftBrow}
+            ${rightBrow}
+            ${mouth}
+            <!-- Pin Bunga -->
+            <circle cx="70" cy="42" r="5" fill="#F59E0B"/>
+            <circle cx="70" cy="42" r="2" fill="#FFFBEB"/>
+          </svg>
+        `;
+      }
+
+      // Default: Zaid
+      return `
+        <svg viewBox="0 0 100 100" class="${sizeClass} shrink-0 drop-shadow-sm" aria-label="Maskot Zaid">
+          <!-- Baju Koko -->
+          <path d="M24 90 C24 74, 76 74, 76 90 Z" fill="#059669"/>
+          <path d="M44 75 L50 86 L56 75" fill="#F59E0B"/>
+          <!-- Telinga -->
+          <circle cx="28" cy="53" r="5" fill="#FCD34D"/>
+          <circle cx="72" cy="53" r="5" fill="#FCD34D"/>
+          <!-- Wajah -->
+          <circle cx="50" cy="53" r="22" fill="#FDE68A"/>
+          <!-- Peci -->
+          <path d="M29 40 C29 22, 71 22, 71 40 Z" fill="#1E293B"/>
+          <rect x="29" y="36" width="42" height="5" rx="2" fill="#F59E0B"/>
+          <!-- Pipi -->
+          <circle cx="37" cy="58" r="3.5" fill="#FCA5A5" opacity="0.7"/>
+          <circle cx="63" cy="58" r="3.5" fill="#FCA5A5" opacity="0.7"/>
+          <!-- Mata -->
+          <circle cx="41" cy="51" r="3" fill="#1E293B"/>
+          <circle cx="59" cy="51" r="3" fill="#1E293B"/>
+          <circle cx="42" cy="50" r="1" fill="#FFFFFF"/>
+          <circle cx="60" cy="50" r="1" fill="#FFFFFF"/>
+          ${leftBrow}
+          ${rightBrow}
+          ${mouth}
+        </svg>
+      `;
+    }
+
+    // Ilustrasi Edukatif Ka'bah & Tanah Suci
+    function getHeroIllustrationSVG() {
+      return `
+        <svg viewBox="0 0 420 260" class="w-full max-w-md mx-auto drop-shadow-md rounded-3xl" role="img" aria-label="Ilustrasi Masjidil Haram dan Ka'bah">
+          <!-- Langit Senja Hangat -->
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0284C7"/>
+              <stop offset="65%" stop-color="#38BDF8"/>
+              <stop offset="100%" stop-color="#FEF3C7"/>
+            </linearGradient>
+          </defs>
+          <rect width="420" height="260" rx="24" fill="url(#skyGrad)"/>
+          <!-- Bulan Sabit & Bintang -->
+          <circle cx="355" cy="48" r="18" fill="#FDE68A"/>
+          <circle cx="363" cy="44" r="15" fill="#0284C7"/>
+          <circle cx="70" cy="45" r="3" fill="#FFFBEB"/>
+          <circle cx="130" cy="32" r="2.5" fill="#FFFBEB"/>
+          <circle cx="290" cy="36" r="3" fill="#FFFBEB"/>
+          <!-- Awan Ceria -->
+          <path d="M40 85 Q55 68 75 78 Q92 65 110 80 Q125 82 120 95 L35 95 Z" fill="#FFFFFF" opacity="0.85"/>
+          <path d="M295 95 Q310 80 328 88 Q345 78 360 92 L290 95 Z" fill="#FFFFFF" opacity="0.8"/>
+          <!-- Bukit Safa & Marwah / Latar Belakang -->
+          <path d="M0 190 Q90 130 180 185 Q280 120 420 185 L420 260 L0 260 Z" fill="#FCD34D"/>
+          <path d="M0 205 Q140 165 260 205 Q340 180 420 205 L420 260 L0 260 Z" fill="#F59E0B" opacity="0.45"/>
+          <!-- Menara Masjid -->
+          <rect x="82" y="85" width="16" height="105" rx="4" fill="#F8FAFC"/>
+          <path d="M80 85 L90 62 L100 85 Z" fill="#059669"/>
+          <circle cx="90" cy="58" r="3" fill="#F59E0B"/>
+
+          <rect x="322" y="85" width="16" height="105" rx="4" fill="#F8FAFC"/>
+          <path d="M320 85 L330 62 L340 85 Z" fill="#059669"/>
+          <circle cx="330" cy="58" r="3" fill="#F59E0B"/>
+
+          <!-- Pelataran Masjid -->
+          <ellipse cx="210" cy="212" rx="145" ry="26" fill="#FFFFFF"/>
+          <ellipse cx="210" cy="212" rx="135" ry="21" fill="#F1F5F9"/>
+
+          <!-- Bangunan Ka'bah -->
+          <rect x="165" y="112" width="90" height="96" rx="6" fill="#1E293B"/>
+          <!-- Kiswah Emas -->
+          <rect x="165" y="132" width="90" height="12" fill="#F59E0B"/>
+          <line x1="173" y1="138" x2="247" y2="138" stroke="#78350F" stroke-width="2" stroke-dasharray="6 4"/>
+          <!-- Pintu Ka'bah -->
+          <rect x="218" y="156" width="18" height="32" rx="3" fill="#F59E0B"/>
+          <!-- Hijr Ismail -->
+          <path d="M136 196 Q136 176 158 176" stroke="#CBD5E1" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+          <!-- Pohon Kurma di Sisi -->
+          <path d="M42 225 Q46 185 40 160" stroke="#92400E" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M40 160 Q20 150 12 165" stroke="#059669" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M40 160 Q60 150 68 165" stroke="#059669" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M40 160 Q25 140 18 148" stroke="#10B981" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M40 160 Q55 140 62 148" stroke="#10B981" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
+    /* ==========================================================================
+       3. TEXT-TO-SPEECH (NARASI AUDIO RAMAH ANAK INDONESIA)
+       ========================================================================== */
+    let isSpeaking = false;
+
+    function toggleSpeech() {
+      if (!('speechSynthesis' in window)) {
+        showModal('🔇', 'Fitur Suara Tidak Tersedia', 'Perangkat atau browser kamu belum mendukung pembacaan suara otomatis.');
+        return;
+      }
+
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        updateTTSButton();
+        return;
+      }
+
+      const contentEl = document.getElementById('app-content');
+      const textToRead = contentEl ? contentEl.innerText.replace(/\s+/g, ' ').trim().slice(0, 1200) : '';
+      if (!textToRead) return;
+
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.lang = 'id-ID';
+      utterance.rate = 0.95;
+      utterance.pitch = 1.05;
+
+      utterance.onend = () => {
+        isSpeaking = false;
+        updateTTSButton();
+      };
+      utterance.onerror = () => {
+        isSpeaking = false;
+        updateTTSButton();
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      isSpeaking = true;
+      updateTTSButton();
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeaking = false;
+      updateTTSButton();
+    }
+
+    function updateTTSButton() {
+      const icon = document.getElementById('tts-icon');
+      const label = document.getElementById('tts-label');
+      if (!icon || !label) return;
+      icon.textContent = isSpeaking ? '⏹️' : '🔊';
+      label.textContent = isSpeaking ? 'Berhenti' : 'Bacakan';
+    }
+
+    /* ==========================================================================
+       4. MODAL KUSTOM & NAVIGASI HALAMAN
+       ========================================================================== */
+    function showModal(emoji, title, body, customBtnHTML = null) {
+      document.getElementById('modal-emoji').textContent = emoji;
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').innerHTML = body;
+      const actions = document.getElementById('modal-actions');
+      if (customBtnHTML) {
+        actions.innerHTML = customBtnHTML;
+      } else {
+        actions.innerHTML = `
+          <button onclick="closeModal()" class="touch-target px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow">
+            Baik, Lanjutkan! 👍
+          </button>
+        `;
+      }
+      const modal = document.getElementById('custom-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('custom-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function goToPage(pageId) {
+      stopSpeech();
+      appState.currentPage = pageId;
+      if (!appState.visitedPages.includes(pageId)) {
+        appState.visitedPages.push(pageId);
+      }
+      saveState();
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigatePrev() {
+      const idx = PAGES.findIndex(p => p.id === appState.currentPage);
+      if (idx > 0) goToPage(PAGES[idx - 1].id);
+    }
+
+    function navigateNext() {
+      const idx = PAGES.findIndex(p => p.id === appState.currentPage);
+      if (idx < PAGES.length - 1) goToPage(PAGES[idx + 1].id);
+    }
+
+    function addStars(amount) {
+      appState.stars += amount;
+      saveState();
+    }
+
+    function updateHeaderUI() {
+      const header = document.getElementById('main-header');
+      const footer = document.getElementById('main-footer');
+      const isCover = appState.currentPage === 'beranda';
+
+      if (isCover) {
+        header.classList.add('hidden');
+        footer.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+        footer.classList.remove('hidden');
+      }
+
+      document.getElementById('global-stars').textContent = appState.stars;
+
+      // Render Menu Navigasi
+      const navContainer = document.getElementById('nav-container');
+      navContainer.innerHTML = PAGES.map(p => {
+        const active = p.id === appState.currentPage;
+        return `
+          <button onclick="goToPage('${p.id}')"
+            class="touch-target px-3.5 py-2 rounded-xl font-bold text-sm sm:text-base flex items-center gap-1.5 transition-all
+            ${active
+              ? 'bg-amber-400 text-slate-950 shadow-md scale-105'
+              : 'bg-emerald-800/70 hover:bg-emerald-600 text-white'}">
+            <span>${p.icon}</span>
+            <span>${p.label}</span>
+          </button>
+        `;
+      }).join('');
+
+      // Update Prev / Next Buttons & Progress Bar
+      const idx = PAGES.findIndex(p => p.id === appState.currentPage);
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      if (btnPrev) {
+        btnPrev.disabled = idx <= 0;
+        btnPrev.classList.toggle('opacity-40', idx <= 0);
+      }
+      if (btnNext) {
+        btnNext.disabled = idx >= PAGES.length - 1;
+        btnNext.classList.toggle('opacity-40', idx >= PAGES.length - 1);
+      }
+
+      const pct = Math.round((appState.visitedPages.length / PAGES.length) * 100);
+      const pctEl = document.getElementById('progress-percent');
+      const barEl = document.getElementById('progress-bar-fill');
+      if (pctEl) pctEl.textContent = pct + '%';
+      if (barEl) barEl.style.width = pct + '%';
+    }
+
+    /* ==========================================================================
+       5. RENDER HALAMAN-HALAMAN MEDIA PEMBELAJARAN
+       ========================================================================== */
+    function renderPage() {
+      const container = document.getElementById('app-content');
+      container.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'page-enter';
+
+      switch (appState.currentPage) {
+        case 'beranda': wrapper.innerHTML = renderBeranda(); break;
+        case 'materi': wrapper.innerHTML = renderMateri(); break;
+        case 'aktivitas': wrapper.innerHTML = renderAktivitas(); break;
+        case 'game': wrapper.innerHTML = renderGame(); break;
+        case 'latihan': wrapper.innerHTML = renderLatihan(); break;
+        case 'kuis': wrapper.innerHTML = renderKuis(); break;
+        case 'hasil': wrapper.innerHTML = renderHasil(); break;
+        case 'refleksi': wrapper.innerHTML = renderRefleksi(); break;
+        case 'petunjuk': wrapper.innerHTML = renderPetunjuk(); break;
+      }
+
+      container.appendChild(wrapper);
+      updateHeaderUI();
+    }
+
+    /* --- HALAMAN 1: COVER PEMBUKA --- */
+    function renderBeranda() {
+      return `
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-700 via-teal-700 to-sky-800 text-white p-6 sm:p-10 md:p-12 shadow-2xl border-4 border-amber-400">
+          <!-- Pola Dekoratif Geometris Halus -->
+          <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-amber-400/15 pointer-events-none"></div>
+          <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-sky-300/15 pointer-events-none"></div>
+
+          <!-- Badge Identitas Atas -->
+          <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6">
+            <span class="px-4 py-1.5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-sm sm:text-base shadow">
+              📚 Pendidikan Agama Islam & Budi Pekerti
+            </span>
+            <span class="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur text-white font-bold text-sm sm:text-base border border-white/30">
+              SD Kelas 5 • Fase C
+            </span>
+          </div>
+
+          <!-- Konten Utama Cover (Rule of Thirds / Seimbang) -->
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Kolom Kiri: Judul & CTA -->
+            <div class="lg:col-span-7 text-center lg:text-left space-y-5">
+              <div class="inline-block px-3.5 py-1 rounded-xl bg-emerald-900/60 border border-emerald-400/40 text-amber-300 font-bold text-sm sm:text-base">
+                BAB 5 • KISAH TELADAN NABI MUHAMMAD SAW.
+              </div>
+
+              <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow">
+                Meneladani Perjuangan Rasulullah saw.
+              </h1>
+
+              <ul class="space-y-2 text-base sm:text-lg text-emerald-50 font-semibold max-w-xl mx-auto lg:mx-0">
+                <li class="flex items-center justify-center lg:justify-start gap-2">
+                  <span class="text-amber-300">✦</span> A. Kisah Istimewa Fathu Makkah
+                </li>
+                <li class="flex items-center justify-center lg:justify-start gap-2">
+                  <span class="text-amber-300">✦</span> B. Peristiwa Haji Wada
+                </li>
+                <li class="flex items-center justify-center lg:justify-start gap-2">
+                  <span class="text-amber-300">✦</span> C. Hikmah dalam Kisah
+                </li>
+              </ul>
+
+              <!-- Tombol MULAI Besar & Kontras -->
+              <div class="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <button onclick="goToPage('materi')"
+                  class="touch-target w-full sm:w-auto px-9 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display text-2xl font-bold shadow-xl border-b-4 border-orange-600 flex items-center justify-center gap-3">
+                  <span>🚀</span>
+                  <span>MULAI BELAJAR</span>
+                </button>
+                <button onclick="goToPage('petunjuk')"
+                  class="touch-target w-full sm:w-auto px-6 py-4 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-lg border-2 border-white/40 flex items-center justify-center gap-2">
+                  <span>📋</span>
+                  <span>Petunjuk</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan: Ilustrasi Utama & Maskot -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+              ${getHeroIllustrationSVG()}
+              <div class="mt-4 bg-white/95 text-slate-800 rounded-2xl p-3.5 shadow-lg border-2 border-amber-300 flex items-center gap-3 max-w-sm">
+                ${getMascotSVG('zaid', 'happy', 'w-16 h-16')}
+                <div class="text-left text-sm sm:text-base">
+                  <p class="font-extrabold text-emerald-700">Assalamu'alaikum, Sahabat!</p>
+                  <p class="text-slate-700 leading-snug">Aku Zaid. Yuk kita jelajahi kisah damai Fathu Makkah & Haji Wada!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Identitas Pembuat & Tujuan Pembelajaran -->
+          <div class="relative z-10 mt-8 pt-5 border-t border-white/25 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-emerald-100">
+            <p class="font-bold">✍️ Penyusun Media: <span class="text-amber-300">Abu Rahmi</span> • Alokasi Waktu: 4 × 35 Menit</p>
+            <button onclick="showTujuanModal()" class="underline hover:text-amber-300 font-bold">
+              🎯 Lihat Tujuan Pembelajaran (7 Capaian)
+            </button>
+          </div>
+        </section>
+      `;
+    }
+
+    function showTujuanModal() {
+      const list = `
+        <ol class="text-left text-sm sm:text-base space-y-2 list-decimal pl-5 text-slate-700">
+          <li>Meyakini peristiwa Fathu Makkah dan Haji Wada dengan benar.</li>
+          <li>Membiasakan perilaku pantang menyerah sebagai bukti implementasi makna peristiwa tersebut.</li>
+          <li>Menjelaskan pengertian peristiwa Fathu Makkah dan Haji Wada dengan benar.</li>
+          <li>Menjelaskan sebab-sebab terjadinya peristiwa Fathu Makkah dengan benar.</li>
+          <li>Menentukan perilaku mulia Rasulullah saw. dalam peristiwa Fathu Makkah dan Haji Wada.</li>
+          <li>Menemukan perilaku terpuji dalam kedua peristiwa tersebut.</li>
+          <li>Menghubungkan peristiwa Fathu Makkah dan Haji Wada dengan perilaku sehari-hari.</li>
+        </ol>
+      `;
+      showModal('🎯', 'Tujuan Pembelajaran Bab 5', list);
+    }
+
+    /* --- HALAMAN 2: MATERI INTI (APERSEPSI, VIDEO & CHUNKING 3 SUBBAB) --- */
+    function setMateriTab(idx) {
+      appState.materiTab = idx;
+      if (!appState['readTab_' + idx]) {
+        appState['readTab_' + idx] = true;
+        addStars(10);
+      }
+      saveState();
+      renderPage();
+    }
+
+    function renderMateri() {
+      const tabs = [
+        { title: '🌟 Apersepsi & Video', short: '1. Pemantik' },
+        { title: '🕋 A. Fathu Makkah', short: '2. Fathu Makkah' },
+        { title: '⛰️ B. Haji Wada', short: '3. Haji Wada' },
+        { title: '💎 C. Hikmah Kisah', short: '4. Hikmah' }
+      ];
+
+      let tabContent = '';
+
+      if (appState.materiTab === 0) {
+        tabContent = `
+          <div class="space-y-6">
+            <!-- Kartu Apersepsi dengan Maskot -->
+            <div class="bg-sky-50 border-2 border-sky-200 rounded-3xl p-5 sm:p-7 flex flex-col md:flex-row items-center gap-5">
+              ${getMascotSVG('zahra', 'think', 'w-24 h-24')}
+              <div class="space-y-2">
+                <span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-bold uppercase">Ayo Mengamati & Berpikir</span>
+                <h3 class="font-display text-2xl font-bold text-sky-900">Pernahkah Kamu Membuat Janji dengan Teman?</h3>
+                <p class="text-slate-700">
+                  Bayangkan jika kamu dan temanmu sepakat untuk bermain bersama dengan rukun, tetapi tiba-tiba janji itu diingkari. Bagaimana perasaanmu? Pasti kecewa, bukan?
+                </p>
+                <p class="text-slate-700 font-semibold text-emerald-800">
+                  Nah, kisah <strong>Fathu Makkah</strong> berawal dari sebuah perjanjian damai yang diingkari! Mari simak video pembelajaran berikut ini terlebih dahulu.
+                </p>
+              </div>
+            </div>
+
+            <!-- Video Pembelajaran YouTube Sesuai Instruksi -->
+            <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 border-amber-300 shadow-md">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-800 flex items-center gap-2">
+                  <span>🎬</span> Video Pembelajaran: Perjuangan Rasulullah saw.
+                </h3>
+                <a href="https://youtu.be/oV02s2oxfPs?si=ne_n2ssmqBmHiZVX" target="_blank" rel="noopener noreferrer"
+                   class="text-sm font-bold text-sky-700 underline hover:text-sky-900">
+                  Buka di YouTube ↗
+                </a>
+              </div>
+              <div class="relative w-full overflow-hidden rounded-2xl bg-slate-900 aspect-video shadow-inner">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/oV02s2oxfPs"
+                  title="Video Pembelajaran PAI Kelas 5 Bab 5"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <p class="mt-3 text-sm text-slate-600 text-center">
+                💡 <em>Tips:</em> Tonton video dengan saksama, lalu klik tab <strong>"2. Fathu Makkah"</strong> di atas untuk mendalami materinya!
+              </p>
+            </div>
+          </div>
+        `;
+      } else if (appState.materiTab === 1) {
+        tabContent = `
+          <div class="space-y-6">
+            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-5 sm:p-7 flex flex-col md:flex-row items-center gap-5">
+              ${getMascotSVG('zaid', 'proud', 'w-24 h-24')}
+              <div>
+                <span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">SUBBAB A • TAHUN 8 HIJRIAH</span>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold text-emerald-950 mt-1">Kisah Istimewa Fathu Makkah</h3>
+                <p class="text-slate-700 mt-1">
+                  <strong>Fathu Makkah</strong> artinya <em>terbukanya Kota Makkah</em> untuk kaum muslimin secara damai tanpa pertumpahan darah.
+                </p>
+              </div>
+            </div>
+
+            <!-- Kronologi 4 Langkah (Chunking) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-white p-5 rounded-3xl border-2 border-slate-200 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="w-10 h-10 rounded-full bg-amber-400 font-display font-bold text-lg flex items-center justify-center">1</span>
+                  <h4 class="font-display text-xl font-bold text-slate-800">Perjanjian Hudaibiyah (6 H)</h4>
+                </div>
+                <p class="text-slate-700 text-base">
+                  Rasulullah saw. mengutus <strong>Usman bin Affan</strong> berunding dengan Kaum Quraisy. Lahirlah perjanjian damai 10 tahun dan kebebasan suku-suku Arab memilih sekutu.
+                </p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-slate-200 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="w-10 h-10 rounded-full bg-amber-400 font-display font-bold text-lg flex items-center justify-center">2</span>
+                  <h4 class="font-display text-xl font-bold text-slate-800">Kaum Quraisy Ingkar Janji</h4>
+                </div>
+                <p class="text-slate-700 text-base">
+                  Kaum Quraisy melanggar janji dengan membantu <strong>Bani Bakr</strong> menyerang <strong>Suku Khuza'ah</strong> (sekutu umat Islam). Mereka memilih membatalkan perjanjian damai.
+                </p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-slate-200 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="w-10 h-10 rounded-full bg-amber-400 font-display font-bold text-lg flex items-center justify-center">3</span>
+                  <h4 class="font-display text-xl font-bold text-slate-800">10.000 Pasukan Masuk Damai</h4>
+                </div>
+                <p class="text-slate-700 text-base">
+                  Rasulullah saw. membawa <strong>10.000 sahabat</strong> dari 4 penjuru (utara, selatan, barat, timur) sambil bertakbir. Tanpa merusak rumah atau melukai penduduk!
+                </p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-slate-200 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="w-10 h-10 rounded-full bg-amber-400 font-display font-bold text-lg flex items-center justify-center">4</span>
+                  <h4 class="font-display text-xl font-bold text-slate-800">Azan Pertama di Ka'bah</h4>
+                </div>
+                <p class="text-slate-700 text-base">
+                  Tokoh Quraisy <strong>Abu Sufyan</strong> masuk Islam. Ka'bah dibersihkan dari berhala, dan <strong>Bilal bin Rabah</strong> mengumandangkan azan pertama di puncak Ka'bah.
+                </p>
+              </div>
+            </div>
+
+            <!-- Dalil Q.S. An-Nasr -->
+            <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 text-center">
+              <p class="font-bold text-amber-900 text-sm uppercase tracking-wider mb-1">📖 Firman Allah dalam Q.S. An-Naṣr (110): 1–3</p>
+              <p class="italic text-slate-800 font-semibold">
+                "Apabila telah datang pertolongan Allah dan kemenangan, dan engkau melihat manusia berbondong-bondong masuk agama Allah, maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya..."
+              </p>
+            </div>
+          </div>
+        `;
+      } else if (appState.materiTab === 2) {
+        tabContent = `
+          <div class="space-y-6">
+            <div class="bg-sky-50 border-2 border-sky-200 rounded-3xl p-5 sm:p-7 flex flex-col md:flex-row items-center gap-5">
+              ${getMascotSVG('zahra', 'amazed', 'w-24 h-24')}
+              <div>
+                <span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-bold">SUBBAB B • TAHUN 10 HIJRIAH</span>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold text-sky-950 mt-1">Peristiwa Haji Wada (Haji Perpisahan)</h3>
+                <p class="text-slate-700 mt-1">
+                  <strong>Haji Wada</strong> adalah ibadah haji terakhir yang dilaksanakan Rasulullah saw. bersama sekitar <strong>30.000</strong> (hingga ratusan ribu) kaum muslimin.
+                </p>
+              </div>
+            </div>
+
+            <!-- Poin Khutbah Wukuf di Padang Arafah -->
+            <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm">
+              <h4 class="font-display text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <span>⛰️</span> 7 Pesan Mulia Rasulullah saw. saat Wukuf di Arafah:
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base">
+                <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 font-semibold">1️⃣ Berperilaku baik antara satu dengan yang lain.</div>
+                <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 font-semibold">2️⃣ Mengerjakan perintah Allah & menjauhi larangan-Nya.</div>
+                <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 font-semibold">3️⃣ Memegang amanat dengan penuh tanggung jawab.</div>
+                <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 font-semibold">4️⃣ Meninggalkan perbuatan riba yang merugikan.</div>
+                <div class="p-3.5 rounded-2xl bg-sky-50 border border-sky-200 font-semibold">5️⃣ Menciptakan perdamaian & tidak balas dendam.</div>
+                <div class="p-3.5 rounded-2xl bg-sky-50 border border-sky-200 font-semibold">6️⃣ Persamaan derajat; yang paling mulia adalah yang bertakwa.</div>
+                <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-300 font-bold sm:col-span-2 text-center">
+                  7️⃣ Sesungguhnya sesama muslim adalah bersaudara! 🤝
+                </div>
+              </div>
+            </div>
+
+            <!-- Dua Pusaka & Wahyu Terakhir -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5">
+                <h4 class="font-display text-xl font-bold text-amber-900 mb-2">🧭 Dua Petunjuk Keselamatan</h4>
+                <p class="text-slate-800">
+                  Rasulullah saw. berpesan: <em>"Aku tinggalkan dua petunjuk untuk kalian, berpegang teguhlah pada keduanya agar tidak tersesat: yaitu <strong>Al-Qur'an</strong> dan <strong>Sunah</strong>."</em>
+                </p>
+              </div>
+              <div class="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-5">
+                <h4 class="font-display text-xl font-bold text-emerald-900 mb-2">✨ Wahyu Terakhir (Q.S. Al-Mā'idah: 3)</h4>
+                <p class="text-slate-800">
+                  Di Arafah turun wahyu terakhir yang menegaskan bahwa <strong>agama Islam telah disempurnakan</strong> oleh Allah Swt. Rasulullah saw. wafat pada 12 Rabiulawal 11 H.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        tabContent = `
+          <div class="space-y-6">
+            <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 sm:p-7 flex flex-col md:flex-row items-center gap-5">
+              ${getMascotSVG('zaid', 'happy', 'w-24 h-24')}
+              <div>
+                <span class="px-3 py-1 rounded-full bg-amber-500 text-slate-950 text-xs font-bold">SUBBAB C • TELADAN SEHARI-HARI</span>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 mt-1">6 Hikmah Mulia untuk Kita Praktikkan</h3>
+                <p class="text-slate-700 mt-1">
+                  Bagaimana cara anak kelas 5 SD meneladani Fathu Makkah dan Haji Wada di sekolah maupun di rumah? Yuk simak!
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="bg-white p-5 rounded-3xl border-2 border-emerald-200 shadow-sm">
+                <div class="text-3xl mb-2">🤝</div>
+                <h4 class="font-display text-xl font-bold text-emerald-800">1. Menepati Janji</h4>
+                <p class="text-slate-700 text-base mt-1">Selalu menepati janji kepada orang tua, guru, dan teman agar dipercaya.</p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-sky-200 shadow-sm">
+                <div class="text-3xl mb-2">💖</div>
+                <h4 class="font-display text-xl font-bold text-sky-800">2. Menebar Kasih Sayang</h4>
+                <p class="text-slate-700 text-base mt-1">Memaafkan teman yang bersalah dan tidak membalas dendam, sebagaimana akhlak Rasulullah saw.</p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-amber-200 shadow-sm">
+                <div class="text-3xl mb-2">🌱</div>
+                <h4 class="font-display text-xl font-bold text-amber-800">3. Rendah Hati</h4>
+                <p class="text-slate-700 text-base mt-1">Tidak sombong walaupun juara kelas atau memiliki banyak kelebihan.</p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-emerald-200 shadow-sm">
+                <div class="text-3xl mb-2">🫂</div>
+                <h4 class="font-display text-xl font-bold text-emerald-800">4. Persaudaraan Kuat</h4>
+                <p class="text-slate-700 text-base mt-1">Hidup rukun dengan semua teman tanpa membeda-bedakan suku atau latar belakang.</p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-sky-200 shadow-sm">
+                <div class="text-3xl mb-2">📖</div>
+                <h4 class="font-display text-xl font-bold text-sky-800">5. Islam Agama Sempurna</h4>
+                <p class="text-slate-700 text-base mt-1">Rajin membaca Al-Qur'an dan mengamalkan sunah Nabi seperti keteladanan Abdullah bin Mas'ud.</p>
+              </div>
+
+              <div class="bg-white p-5 rounded-3xl border-2 border-amber-200 shadow-sm">
+                <div class="text-3xl mb-2">🤲</div>
+                <h4 class="font-display text-xl font-bold text-amber-800">6. Yakin Pertolongan Allah</h4>
+                <p class="text-slate-700 text-base mt-1">Pantang menyerah saat belajar dan selalu berdoa memohon pertolongan Allah Swt.</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">📖 Eksplorasi Materi Inti</h2>
+              <p class="text-slate-600">Pilih bagian materi di bawah ini untuk mempelajarinya secara bertahap.</p>
+            </div>
+          </div>
+
+          <!-- Navigasi Chunking Tab -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            ${tabs.map((t, i) => `
+              <button onclick="setMateriTab(${i})"
+                class="touch-target p-3.5 rounded-2xl font-display font-bold text-base sm:text-lg border-2 text-center transition-all
+                ${appState.materiTab === i
+                  ? 'bg-emerald-600 text-white border-emerald-800 shadow-md scale-[1.02]'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-emerald-50'}">
+                ${t.short}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Konten Tab -->
+          <div>${tabContent}</div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 3: AKTIVITAS INTERAKTIF (DRAG & DROP + TAP-TO-PLACE RAMAH FID) --- */
+    const ACTIVITY_ITEMS = [
+      { id: 'item1', text: 'Perjanjian Hudaibiyah (Tahun 6 H)', target: 'fathu' },
+      { id: 'item2', text: 'Bilal bin Rabah azan di atas Ka\'bah', target: 'fathu' },
+      { id: 'item3', text: 'Khutbah perpisahan di Padang Arafah', target: 'haji' },
+      { id: 'item4', text: 'Turunnya wahyu terakhir Q.S. Al-Ma\'idah: 3', target: 'haji' },
+      { id: 'item5', text: '10.000 pasukan masuk Makkah tanpa perang', target: 'fathu' },
+      { id: 'item6', text: 'Pesan berpegang pada Al-Qur\'an & Sunah', target: 'haji' }
+    ];
+
+    let selectedChipId = null;
+
+    function selectActivityChip(id) {
+      selectedChipId = (selectedChipId === id) ? null : id;
+      renderPage();
+    }
+
+    function handleDragStart(ev, id) {
+      ev.dataTransfer.setData('text/plain', id);
+      selectedChipId = id;
+    }
+
+    function handleDrop(ev, zone) {
+      ev.preventDefault();
+      const id = ev.dataTransfer.getData('text/plain') || selectedChipId;
+      if (id) placeItemToZone(id, zone);
+    }
+
+    function placeItemToZone(id, zone) {
+      const item = ACTIVITY_ITEMS.find(x => x.id === id);
+      if (!item) return;
+
+      if (item.target === zone) {
+        appState.activityPlacements[id] = zone;
+        selectedChipId = null;
+        if (Object.keys(appState.activityPlacements).length === ACTIVITY_ITEMS.length && !appState.activityCompleted) {
+          appState.activityCompleted = true;
+          addStars(30);
+          showModal('🎉', 'Luar Biasa Hebat!', 'Kamu berhasil mengelompokkan semua peristiwa Fathu Makkah dan Haji Wada dengan tepat! (+30 Bintang)');
+        }
+        saveState();
+        renderPage();
+      } else {
+        selectedChipId = null;
+        showModal('🤔', 'Coba Periksa Kembali!', `Peristiwa <strong>"${item.text}"</strong> kurang tepat jika diletakkan di kotak ini. Ingat kembali kisah Fathu Makkah dan Haji Wada, lalu coba lagi ya!`);
+      }
+    }
+
+    function resetActivity() {
+      appState.activityPlacements = {};
+      selectedChipId = null;
+      saveState();
+      renderPage();
+    }
+
+    function renderAktivitas() {
+      const unplaced = ACTIVITY_ITEMS.filter(i => !appState.activityPlacements[i.id]);
+      const fathuPlaced = ACTIVITY_ITEMS.filter(i => appState.activityPlacements[i.id] === 'fathu');
+      const hajiPlaced = ACTIVITY_ITEMS.filter(i => appState.activityPlacements[i.id] === 'haji');
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 border-sky-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              ${getMascotSVG('zahra', 'happy', 'w-20 h-20')}
+              <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">🎯 Aktivitas: Kelompokkan Peristiwa!</h2>
+                <p class="text-slate-700 text-sm sm:text-base">
+                  <strong>Cara Bermain:</strong> Seret (<em>drag</em>) kartu peristiwa ke kotak yang sesuai, atau <strong>ketuk kartu</strong> lalu <strong>ketuk kotak tujuan</strong>!
+                </p>
+              </div>
+            </div>
+            <button onclick="resetActivity()" class="touch-target px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm border border-slate-300 shrink-0">
+              🔄 Ulangi Aktivitas
+            </button>
+          </div>
+
+          <!-- Bank Kartu Peristiwa -->
+          <div class="bg-amber-50 rounded-3xl p-5 border-2 border-dashed border-amber-400">
+            <p class="font-bold text-amber-900 mb-3 text-sm uppercase tracking-wider">
+              📦 Kartu Peristiwa (${unplaced.length} tersisa):
+            </p>
+            ${unplaced.length === 0
+              ? `<div class="text-center py-4 font-display text-xl text-emerald-700 font-bold">✅ Semua kartu sudah terpasang dengan benar!</div>`
+              : `<div class="flex flex-wrap gap-3">
+                  ${unplaced.map(item => {
+                    const isSel = selectedChipId === item.id;
+                    return `
+                      <button draggable="true"
+                        ondragstart="handleDragStart(event, '${item.id}')"
+                        onclick="selectActivityChip('${item.id}')"
+                        class="touch-target px-4 py-3 rounded-2xl font-bold text-left text-sm sm:text-base shadow-sm border-2 cursor-grab active:cursor-grabbing transition-all
+                        ${isSel ? 'bg-amber-400 text-slate-950 border-orange-600 scale-105 ring-4 ring-amber-200' : 'bg-white text-slate-800 border-slate-300 hover:border-amber-500'}">
+                        🏷️ ${item.text}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>`
+            }
+          </div>
+
+          <!-- Dua Zona Target Drop -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Zona Fathu Makkah -->
+            <div ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'fathu')"
+                 onclick="if(selectedChipId) placeItemToZone(selectedChipId, 'fathu')"
+                 class="min-h-[240px] rounded-3xl bg-emerald-50 border-4 border-emerald-400 p-5 flex flex-col justify-between cursor-pointer hover:bg-emerald-100/70 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-display text-xl sm:text-2xl font-bold text-emerald-900">🕋 Peristiwa Fathu Makkah</h3>
+                  <span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">${fathuPlaced.length}/3</span>
+                </div>
+                <p class="text-xs sm:text-sm text-emerald-800 mb-4">Ketuk kotak ini setelah memilih kartu yang berkaitan dengan terbukanya Kota Makkah.</p>
+                <div class="space-y-2.5">
+                  ${fathuPlaced.map(p => `
+                    <div class="p-3 rounded-2xl bg-white border-2 border-emerald-500 text-emerald-950 font-bold text-sm sm:text-base flex items-center gap-2 anim-bounce">
+                      <span>✅</span> <span>${p.text}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Zona Haji Wada -->
+            <div ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'haji')"
+                 onclick="if(selectedChipId) placeItemToZone(selectedChipId, 'haji')"
+                 class="min-h-[240px] rounded-3xl bg-sky-50 border-4 border-sky-400 p-5 flex flex-col justify-between cursor-pointer hover:bg-sky-100/70 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-display text-xl sm:text-2xl font-bold text-sky-900">⛰️ Peristiwa Haji Wada</h3>
+                  <span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-bold">${hajiPlaced.length}/3</span>
+                </div>
+                <p class="text-xs sm:text-sm text-sky-800 mb-4">Ketuk kotak ini setelah memilih kartu yang berkaitan dengan haji terakhir Rasulullah saw.</p>
+                <div class="space-y-2.5">
+                  ${hajiPlaced.map(p => `
+                    <div class="p-3 rounded-2xl bg-white border-2 border-sky-500 text-sky-950 font-bold text-sm sm:text-base flex items-center gap-2 anim-bounce">
+                      <span>✅</span> <span>${p.text}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 4: GAME EDUKASI (JEJAK KATA BERMAKNA - ADAPTASI AYO BERMAIN HAL 122) --- */
+    const WORD_GRID = [
+      ['M', 'A', 'K', 'K', 'A', 'H', 'R', 'S'],
+      ['U', 'S', 'M', 'A', 'N', 'B', 'I', 'U'],
+      ['D', 'A', 'M', 'A', 'I', 'I', 'D', 'N'],
+      ['A', 'R', 'A', 'F', 'A', 'H', 'O', 'A'],
+      ['J', 'A', 'N', 'J', 'I', 'L', 'A', 'H'],
+      ['K', 'A', 'K', 'B', 'A', 'H', 'A', 'L'],
+      ['T', 'A', 'W', 'A', 'F', 'L', 'L', 'M'],
+      ['S', 'A', 'H', 'A', 'B', 'A', 'T', 'K']
+    ];
+
+    const TARGET_WORDS = [
+      { word: 'MAKKAH', clue: 'Kota suci tempat Ka\'bah berada (Baris 1)' },
+      { word: 'DAMAI', clue: 'Suasana Fathu Makkah tanpa peperangan (Baris 3)' },
+      { word: 'ARAFAH', clue: 'Tempat wukuf dan khutbah Haji Wada (Baris 4)' },
+      { word: 'JANJI', clue: 'Wajib ditepati, tidak boleh diingkari (Baris 5)' },
+      { word: 'KAKBAH', clue: 'Kiblat umat Islam seluruh dunia (Baris 6)' },
+      { word: 'TAWAF', clue: 'Mengelilingi Ka\'bah sebanyak 7 kali (Baris 7)' },
+      { word: 'SAHABAT', clue: 'Para pengikut setia Rasulullah saw. (Baris 8)' },
+      { word: 'SUNAH', clue: 'Petunjuk Nabi selain Al-Qur\'an (Kolom 8, menurun)' }
+    ];
+
+    let selectedCells = []; // array of "r-c"
+
+    function toggleGridCell(r, c) {
+      const key = `${r}-${c}`;
+      const idx = selectedCells.indexOf(key);
+      if (idx > -1) {
+        selectedCells.splice(idx, 1);
+      } else {
+        selectedCells.push(key);
+      }
+      checkWordMatch();
+      renderPage();
+    }
+
+    function checkWordMatch() {
+      // Bentuk kata dari sel terpilih (urut berdasarkan posisi)
+      const sorted = [...selectedCells].sort((a, b) => {
+        const [r1, c1] = a.split('-').map(Number);
+        const [r2, c2] = b.split('-').map(Number);
+        return r1 === r2 ? c1 - c2 : r1 - r2;
+      });
+      const formed = sorted.map(k => {
+        const [r, c] = k.split('-').map(Number);
+        return WORD_GRID[r][c];
+      }).join('');
+
+      const foundObj = TARGET_WORDS.find(t => t.word === formed && !appState.gameFoundWords.includes(t.word));
+      if (foundObj) {
+        appState.gameFoundWords.push(foundObj.word);
+        appState.gameScore += 15;
+        addStars(15);
+        selectedCells = [];
+        saveState();
+        if (appState.gameFoundWords.length === TARGET_WORDS.length) {
+          showModal('🏆', 'Penjelajah Kata Juara!', 'MasyaAllah! Kamu menemukan seluruh 8 kata kunci sejarah Fathu Makkah & Haji Wada!');
+        }
+      }
+    }
+
+    function clearGridSelection() {
+      selectedCells = [];
+      renderPage();
+    }
+
+    function renderGame() {
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              ${getMascotSVG('zaid', 'amazed', 'w-20 h-20')}
+              <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">🎮 Game: Jejak Kata Bermakna</h2>
+                <p class="text-slate-700 text-sm sm:text-base">
+                  Ketuk huruf-huruf secara berurutan (mendatar atau menurun) untuk membentuk <strong>8 kata kunci</strong> materi!
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="px-4 py-2 rounded-2xl bg-emerald-100 text-emerald-900 font-extrabold">
+                Ditemukan: ${appState.gameFoundWords.length} / ${TARGET_WORDS.length}
+              </div>
+              <button onclick="clearGridSelection()" class="touch-target px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm border border-slate-300">
+                Hapus Pilihan
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Papan Huruf 8x8 -->
+            <div class="lg:col-span-7 bg-white p-4 sm:p-6 rounded-3xl border-4 border-emerald-500 shadow-md">
+              <div class="grid grid-cols-8 gap-1.5 sm:gap-2 max-w-md mx-auto">
+                ${WORD_GRID.map((row, r) => row.map((letter, c) => {
+                  const key = `${r}-${c}`;
+                  const isSelected = selectedCells.includes(key);
+                  return `
+                    <button onclick="toggleGridCell(${r}, ${c})"
+                      class="word-cell aspect-square rounded-xl font-display font-bold text-lg sm:text-2xl flex items-center justify-center border-2 transition-all
+                      ${isSelected
+                        ? 'bg-amber-400 text-slate-950 border-orange-600 scale-105 shadow'
+                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border-emerald-200'}">
+                      ${letter}
+                    </button>
+                  `;
+                }).join('')).join('')}
+              </div>
+            </div>
+
+            <!-- Daftar Kata Kunci & Petunjuk -->
+            <div class="lg:col-span-5 bg-white p-5 rounded-3xl border-2 border-slate-200 space-y-3">
+              <h3 class="font-display text-xl font-bold text-slate-800">🔎 Daftar Kata yang Dicari:</h3>
+              <div class="space-y-2">
+                ${TARGET_WORDS.map(item => {
+                  const found = appState.gameFoundWords.includes(item.word);
+                  return `
+                    <div class="p-3 rounded-2xl border-2 flex items-center justify-between gap-2
+                      ${found ? 'bg-emerald-50 border-emerald-400 text-emerald-900' : 'bg-slate-50 border-slate-200 text-slate-700'}">
+                      <div>
+                        <p class="font-display font-bold text-base sm:text-lg ${found ? 'line-through text-emerald-700' : ''}">
+                          ${found ? '✅ ' + item.word : '❓ ' + item.word[0] + ' _ '.repeat(item.word.length - 1)}
+                        </p>
+                        <p class="text-xs sm:text-sm text-slate-600">${item.clue}</p>
+                      </div>
+                      <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg ${found ? 'bg-emerald-600 text-white' : 'bg-amber-200 text-amber-900'}">
+                        ${found ? '+15 ⭐' : item.word.length + ' Huruf'}
+                      </span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 5: LATIHAN DENGAN FEEDBACK LANGSUNG (ASESMEN FOR LEARNING) --- */
+    const PRACTICE_QUESTIONS = [
+      {
+        id: 'p1',
+        q: '1. Apa penyebab utama terjadinya peristiwa Fathu Makkah pada tahun 8 Hijriah?',
+        options: [
+          'Kaum Quraisy melanggar Perjanjian Hudaibiyah dengan menyerang Suku Khuza\'ah',
+          'Penduduk Madinah ingin berdagang ke luar negeri',
+          'Kaum Quraisy meminta bantuan pembangunan masjid'
+        ],
+        correct: 0,
+        hint: 'Ingat kembali kisah perjanjian damai selama 10 tahun yang dikhianati oleh Kaum Quraisy bersama Bani Bakr.',
+        explanation: 'Tepat sekali! Kaum Quraisy melanggar Perjanjian Hudaibiyah dengan membantu Bani Bakr menyerang Suku Khuza\'ah.'
+      },
+      {
+        id: 'p2',
+        q: '2. Siapakah sahabat yang diperintahkan Rasulullah saw. mengumandangkan azan di atas puncak Ka\'bah saat Fathu Makkah?',
+        options: [
+          'Usman bin Affan',
+          'Bilal bin Rabah',
+          'Abdullah bin Mas\'ud'
+        ],
+        correct: 1,
+        hint: 'Beliau adalah muazin pertama dalam sejarah Islam yang memiliki suara sangat merdu.',
+        explanation: 'Benar! Bilal bin Rabah naik ke puncak Ka\'bah dan mengumandangkan azan pertama di Kota Makkah.'
+      },
+      {
+        id: 'p3',
+        q: '3. Mengapa ibadah haji yang dilaksanakan Rasulullah saw. pada tahun 10 Hijriah dinamakan Haji Wada?',
+        options: [
+          'Karena dilaksanakan pada musim hujan',
+          'Karena merupakan haji perpisahan atau haji terakhir Rasulullah saw.',
+          'Karena diikuti oleh penduduk Makkah saja'
+        ],
+        correct: 1,
+        hint: 'Kata "Wada" dalam bahasa Arab memiliki arti perpisahan.',
+        explanation: 'Hebat! Haji Wada berarti haji perpisahan karena menjadi haji terakhir Rasulullah saw. sebelum wafat.'
+      },
+      {
+        id: 'p4',
+        q: '4. Dalam khutbah Haji Wada, Rasulullah saw. mewariskan dua petunjuk agar umat Islam tidak tersesat selamanya, yaitu...',
+        options: [
+          'Harta benda dan jabatan',
+          'Al-Qur\'an dan Sunah',
+          'Pasukan dan benteng pertahanan'
+        ],
+        correct: 1,
+        hint: 'Keduanya merupakan sumber hukum utama ajaran agama Islam.',
+        explanation: 'MasyaAllah, benar! Al-Qur\'an dan Sunah adalah dua pusaka pedoman hidup umat Islam.'
+      }
+    ];
+
+    function answerPractice(qId, optIdx) {
+      const qObj = PRACTICE_QUESTIONS.find(q => q.id === qId);
+      const isCorrect = optIdx === qObj.correct;
+
+      if (isCorrect && appState.practiceAnswers[qId] !== qObj.correct) {
+        addStars(15);
+      }
+      appState.practiceAnswers[qId] = optIdx;
+      saveState();
+      renderPage();
+    }
+
+    function renderLatihan() {
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 border-emerald-300 flex flex-col sm:flex-row items-center gap-4">
+            ${getMascotSVG('zahra', 'proud', 'w-20 h-20')}
+            <div>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">📝 Latihan Terbimbing</h2>
+              <p class="text-slate-700 text-sm sm:text-base">
+                Uji pemahamanmu! Jika jawaban belum tepat, baca petunjuk dari Zahra dan coba pilih lagi ya.
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            ${PRACTICE_QUESTIONS.map(q => {
+              const userChoice = appState.practiceAnswers[q.id];
+              const hasAnswered = userChoice !== undefined;
+              const isCorrect = userChoice === q.correct;
+
+              return `
+                <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 ${hasAnswered ? (isCorrect ? 'border-emerald-500' : 'border-amber-400') : 'border-slate-200'} shadow-sm space-y-4">
+                  <h3 class="font-display text-lg sm:text-xl font-bold text-slate-800">${q.q}</h3>
+                  <div class="space-y-2.5">
+                    ${q.options.map((opt, idx) => {
+                      let btnStyle = 'bg-slate-50 hover:bg-sky-50 border-slate-300 text-slate-800';
+                      let badge = String.fromCharCode(65 + idx);
+                      if (hasAnswered && userChoice === idx) {
+                        if (isCorrect) {
+                          btnStyle = 'bg-emerald-100 border-emerald-600 text-emerald-950 font-bold';
+                          badge = '✓';
+                        } else {
+                          btnStyle = 'bg-rose-50 border-rose-400 text-rose-900 font-bold anim-shake';
+                          badge = '✗';
+                        }
+                      }
+                      return `
+                        <button onclick="answerPractice('${q.id}', ${idx})"
+                          class="touch-target w-full p-3.5 rounded-2xl border-2 text-left flex items-center gap-3 transition-all ${btnStyle}">
+                          <span class="w-9 h-9 rounded-xl bg-white border border-slate-300 font-display font-bold flex items-center justify-center shrink-0">
+                            ${badge}
+                          </span>
+                          <span>${opt}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+
+                  ${hasAnswered ? `
+                    <div class="p-4 rounded-2xl ${isCorrect ? 'bg-emerald-50 text-emerald-900 border border-emerald-300' : 'bg-amber-50 text-amber-950 border border-amber-300'} text-sm sm:text-base">
+                      ${isCorrect
+                        ? `<p class="font-bold">🌟 Jawaban Benar! (+15 Poin)</p><p>${q.explanation}</p>`
+                        : `<p class="font-bold">💡 Petunjuk Korektif (Ayo Coba Lagi!):</p><p>${q.hint}</p>`
+                      }
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 6: KUIS AKHIR 10 SOAL DIACAK (ASESMEN OF LEARNING) --- */
+    const QUIZ_BANK = [
+      {
+        q: 'Kota suci tempat kelahiran Nabi Muhammad saw. dan berdirinya bangunan suci Masjidil Haram adalah...',
+        options: ['Kota Makkah', 'Kota Madinah', 'Kota Thaif', 'Kota Yerusalem'],
+        answer: 'Kota Makkah',
+        pembahasan: 'Kota Makkah adalah kota suci tempat kelahiran Nabi Muhammad saw. dan di dalamnya terdapat Masjidil Haram serta Ka\'bah.'
+      },
+      {
+        q: 'Perjanjian damai antara Kaum Quraisy Makkah dengan kaum muslimin Madinah pada tahun 6 Hijriah disebut...',
+        options: ['Perjanjian Hudaibiyah', 'Piagam Madinah', 'Perjanjian Aqabah', 'Fathu Makkah'],
+        answer: 'Perjanjian Hudaibiyah',
+        pembahasan: 'Perjanjian Hudaibiyah ditandatangani pada bulan Zulkaidah tahun ke-6 Hijriah untuk menghentikan permusuhan selama 10 tahun.'
+      },
+      {
+        q: 'Salah satu manfaat utama Perjanjian Hudaibiyah bagi umat Islam di Madinah adalah...',
+        options: [
+          'Tidak ada peperangan sehingga dakwah berjalan tenang dan aman',
+          'Umat Islam dilarang beribadah di Masjid Nabawi',
+          'Kaum Quraisy menguasai Kota Madinah',
+          'Umat Islam bebas berperang setiap tahun'
+        ],
+        answer: 'Tidak ada peperangan sehingga dakwah berjalan tenang dan aman',
+        pembahasan: 'Gencatan senjata selama 10 tahun membuat suasana aman sehingga Rasulullah saw. fokus berdakwah dengan damai.'
+      },
+      {
+        q: 'Makna peristiwa Fathu Makkah yang paling tepat adalah...',
+        options: [
+          'Penaklukan Kota Makkah oleh Nabi Muhammad saw. dan sahabat secara damai',
+          'Penyerangan besar-besaran yang menghancurkan rumah penduduk Makkah',
+          'Perpindahan seluruh penduduk Madinah untuk menetap di Makkah',
+          'Perjalanan ibadah haji terakhir yang dilakukan Rasulullah saw.'
+        ],
+        answer: 'Penaklukan Kota Makkah oleh Nabi Muhammad saw. dan sahabat secara damai',
+        pembahasan: 'Fathu Makkah berarti terbukanya Kota Makkah secara damai tanpa pertumpahan darah dan tanpa merusak kota.'
+      },
+      {
+        q: 'Sikap mulia Rasulullah saw. saat memasuki Kota Makkah dengan 10.000 pasukan adalah...',
+        options: [
+          'Menghormati penduduk Makkah dan memaafkan kesalahan masa lalu mereka',
+          'Membalas dendam kepada kaum Quraisy yang dahulu menyakiti beliau',
+          'Memaksa seluruh penduduk Makkah meninggalkan rumahnya',
+          'Menyombongkan kekuatan pasukan di hadapan penduduk Makkah'
+        ],
+        answer: 'Menghormati penduduk Makkah dan memaafkan kesalahan masa lalu mereka',
+        pembahasan: 'Rasulullah saw. bersikap rendah hati, santun, dan pemaaf sehingga penduduk Makkah merasa aman.'
+      },
+      {
+        q: 'Mengapa ribuan penduduk Quraisy berbondong-bondong masuk Islam setelah peristiwa Fathu Makkah?',
+        options: [
+          'Karena kagum melihat akhlak mulia Rasulullah saw. yang penuh kasih sayang dan damai',
+          'Karena dipaksa dan diancam oleh pasukan kaum muslimin',
+          'Karena dijanjikan harta kekayaan yang melimpah',
+          'Karena takut rumah mereka akan dirusak'
+        ],
+        answer: 'Karena kagum melihat akhlak mulia Rasulullah saw. yang penuh kasih sayang dan damai',
+        pembahasan: 'Kekhawatiran Kaum Quraisy akan pembalasan dendam tidak terbukti; mereka justru tersentuh oleh akhlak lembut Nabi.'
+      },
+      {
+        q: 'Peristiwa dikumandangkannya azan oleh Bilal bin Rabah di atas puncak Ka\'bah menandakan...',
+        options: [
+          'Terbukanya Kota Makkah untuk kaum muslimin dan bersihnya Ka\'bah dari kemusyrikan',
+          'Dimulainya peperangan melawan suku-suku di sekitar Makkah',
+          'Berakhirnya masa tinggal kaum muslimin di Kota Madinah',
+          'Dimulainya pembangunan kembali dinding Ka\'bah'
+        ],
+        answer: 'Terbukanya Kota Makkah untuk kaum muslimin dan bersihnya Ka\'bah dari kemusyrikan',
+        pembahasan: 'Setelah berhala di sekitar Ka\'bah dibersihkan, azan pertama berkumandang sebagai tanda kemenangan tauhid secara damai.'
+      },
+      {
+        q: 'Ibadah haji terakhir yang dilaksanakan Rasulullah saw. kemudian beliau berpidato di Padang Arafah dikenal sebagai...',
+        options: ['Haji Wada', 'Haji Qiran', 'Haji Tamattu', 'Haji Ifrad'],
+        answer: 'Haji Wada',
+        pembahasan: 'Haji Wada (Haji Perpisahan) terjadi pada tahun ke-10 Hijriah dan menjadi haji terakhir Rasulullah saw.'
+      },
+      {
+        q: 'Dalam khutbah Haji Wada, Nabi Muhammad saw. berpesan agar manusia hidup berdampingan tanpa permusuhan. Sikap anak muslim yang sesuai pesan tersebut adalah...',
+        options: [
+          'Menghargai perbedaan dan hidup rukun dengan semua teman',
+          'Hanya mau berteman dengan teman yang satu suku saja',
+          'Membanggakan diri di hadapan teman yang kurang mampu',
+          'Membalas perbuatan teman yang tidak sengaja menyenggol'
+        ],
+        answer: 'Menghargai perbedaan dan hidup rukun dengan semua teman',
+        pembahasan: 'Rasulullah saw. menegaskan persamaan derajat manusia dan persaudaraan antar sesama.'
+      },
+      {
+        q: 'Surah Al-Qur\'an yang turun saat wukuf di Arafah sebagai tanda sempurnanya ajaran agama Islam adalah...',
+        options: [
+          'Q.S. Al-Ma\'idah ayat 3',
+          'Q.S. An-Nasr ayat 1–3',
+          'Q.S. Al-Fatihah ayat 1–7',
+          'Q.S. Al-Ikhlas ayat 1–4'
+        ],
+        answer: 'Q.S. Al-Ma\'idah ayat 3',
+        pembahasan: 'Q.S. Al-Ma\'idah/5: 3 menegaskan bahwa pada hari itu Allah Swt. telah menyempurnakan agama Islam bagi umat-Nya.'
+      }
+    ];
+
+    let quizTimerInterval = null;
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function startQuiz() {
+      // Acak soal DAN acak urutan pilihan jawaban setiap kali mulai
+      const randomizedQuestions = shuffleArray(QUIZ_BANK).map(item => ({
+        ...item,
+        shuffledOptions: shuffleArray(item.options)
+      }));
+
+      appState.quizState = {
+        started: true,
+        finished: false,
+        questions: randomizedQuestions,
+        currentIndex: 0,
+        userAnswers: new Array(randomizedQuestions.length).fill(null),
+        score: 0,
+        startTime: Date.now(),
+        elapsedSeconds: 0
+      };
+      saveState();
+      startQuizTimer();
+      renderPage();
+    }
+
+    function startQuizTimer() {
+      if (quizTimerInterval) clearInterval(quizTimerInterval);
+      quizTimerInterval = setInterval(() => {
+        if (appState.currentPage === 'kuis' && appState.quizState.started && !appState.quizState.finished) {
+          appState.quizState.elapsedSeconds = Math.floor((Date.now() - appState.quizState.startTime) / 1000);
+          const timerEl = document.getElementById('quiz-timer-display');
+          if (timerEl) {
+            timerEl.textContent = formatDuration(appState.quizState.elapsedSeconds);
+          }
+        }
+      }, 1000);
+    }
+
+    function formatDuration(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function selectQuizOption(optionText) {
+      const qs = appState.quizState;
+      if (qs.userAnswers[qs.currentIndex] !== null) return; // Sudah dijawab
+
+      qs.userAnswers[qs.currentIndex] = optionText;
+      const currentQ = qs.questions[qs.currentIndex];
+      if (optionText === currentQ.answer) {
+        qs.score += 10;
+        addStars(10);
+      }
+      saveState();
+      renderPage();
+    }
+
+    function nextQuizQuestion() {
+      const qs = appState.quizState;
+      if (qs.currentIndex < qs.questions.length - 1) {
+        qs.currentIndex++;
+        saveState();
+        renderPage();
+      } else {
+        qs.finished = true;
+        if (quizTimerInterval) clearInterval(quizTimerInterval);
+        saveState();
+        goToPage('hasil');
+      }
+    }
+
+    function renderKuis() {
+      const qs = appState.quizState;
+
+      if (!qs.started) {
+        return `
+          <div class="bg-white rounded-3xl p-6 sm:p-10 border-4 border-amber-400 text-center max-w-2xl mx-auto space-y-5 shadow-lg">
+            <div class="flex justify-center">${getMascotSVG('zaid', 'proud', 'w-28 h-28')}</div>
+            <h2 class="font-display text-3xl font-bold text-slate-800">❓ Kuis Evaluasi Akhir Bab 5</h2>
+            <p class="text-slate-700 text-base sm:text-lg">
+              Terdiri dari <strong>10 soal pilihan ganda</strong> yang diacak secara otomatis. Setiap jawaban benar bernilai <strong>10 poin</strong>!
+            </p>
+            <div class="bg-sky-50 p-4 rounded-2xl border border-sky-200 text-sm text-sky-900 font-semibold">
+              ⏱️ Waktu pengerjaan akan dicatat otomatis. Bacalah setiap soal dengan tenang dan teliti!
+            </div>
+            <button onclick="startQuiz()"
+              class="touch-target px-8 py-4 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-display text-2xl font-bold shadow-lg border-b-4 border-orange-600">
+              🚀 Mulai Kuis Sekarang
+            </button>
+          </div>
+        `;
+      }
+
+      if (qs.finished) {
+        return `
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-400 text-center max-w-xl mx-auto space-y-4">
+            <div class="text-5xl">🎉</div>
+            <h2 class="font-display text-2xl font-bold text-slate-800">Kuis Telah Selesai!</h2>
+            <p class="text-slate-700">Skor akhir kamu adalah <strong>${qs.score} / 100</strong> dalam waktu <strong>${formatDuration(qs.elapsedSeconds)}</strong>.</p>
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+              <button onclick="goToPage('hasil')" class="touch-target px-6 py-3 rounded-2xl bg-emerald-600 text-white font-bold shadow">
+                🏆 Lihat Rapor & Pembahasan
+              </button>
+              <button onclick="startQuiz()" class="touch-target px-6 py-3 rounded-2xl bg-amber-400 text-slate-950 font-bold shadow">
+                🔄 Ulangi Kuis (Soal Diacak)
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      const idx = qs.currentIndex;
+      const currentQ = qs.questions[idx];
+      const userAns = qs.userAnswers[idx];
+      const answered = userAns !== null;
+      const isCorrect = userAns === currentQ.answer;
+      const progressPct = Math.round(((idx + 1) / qs.questions.length) * 100);
+
+      return `
+        <div class="max-w-3xl mx-auto space-y-5">
+          <!-- Bar Atas Kuis: Progress & Timer -->
+          <div class="bg-white p-4 rounded-2xl border-2 border-slate-200 flex items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex justify-between text-xs sm:text-sm font-bold text-slate-600 mb-1">
+                <span>Soal ${idx + 1} dari ${qs.questions.length}</span>
+                <span>Skor: ${qs.score}</span>
+              </div>
+              <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                <div class="h-full bg-sky-600 transition-all duration-300" style="width: ${progressPct}%"></div>
+              </div>
+            </div>
+            <div class="px-3.5 py-2 rounded-xl bg-amber-100 border border-amber-300 font-display font-bold text-amber-900 flex items-center gap-1.5">
+              <span>⏱️</span>
+              <span id="quiz-timer-display">${formatDuration(qs.elapsedSeconds)}</span>
+            </div>
+          </div>
+
+          <!-- Kartu Soal -->
+          <div class="bg-white rounded-3xl p-5 sm:p-8 border-2 border-sky-200 shadow-md space-y-5">
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
+              ${idx + 1}. ${currentQ.q}
+            </h3>
+
+            <div class="space-y-3">
+              ${currentQ.shuffledOptions.map((opt, oIdx) => {
+                let style = 'bg-slate-50 hover:bg-sky-50 border-slate-300 text-slate-800';
+                let icon = String.fromCharCode(65 + oIdx);
+
+                if (answered) {
+                  if (opt === currentQ.answer) {
+                    style = 'bg-emerald-100 border-emerald-600 text-emerald-950 font-bold';
+                    icon = '✓';
+                  } else if (opt === userAns) {
+                    style = 'bg-rose-100 border-rose-500 text-rose-950 font-bold';
+                    icon = '✗';
+                  } else {
+                    style = 'bg-slate-50 border-slate-200 text-slate-400';
+                  }
+                }
+
+                return `
+                  <button onclick="selectQuizOption('${opt.replace(/'/g, "\\'")}')"
+                    ${answered ? 'disabled' : ''}
+                    class="touch-target w-full p-4 rounded-2xl border-2 text-left flex items-center gap-3.5 transition-all ${style}">
+                    <span class="w-10 h-10 rounded-xl bg-white border border-slate-300 font-display font-bold flex items-center justify-center shrink-0">
+                      ${icon}
+                    </span>
+                    <span class="text-base sm:text-lg">${opt}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Feedback Edukatif Setelah Menjawab -->
+            ${answered ? `
+              <div class="p-4 rounded-2xl border-2 ${isCorrect ? 'bg-emerald-50 border-emerald-400 text-emerald-950' : 'bg-amber-50 border-amber-400 text-amber-950'} space-y-1">
+                <p class="font-display font-bold text-lg">
+                  ${isCorrect ? '🎉 MasyaAllah, Jawabanmu Tepat!' : '📘 Jawaban yang Tepat: ' + currentQ.answer}
+                </p>
+                <p class="text-sm sm:text-base">${currentQ.pembahasan}</p>
+              </div>
+              <div class="flex justify-end pt-2">
+                <button onclick="nextQuizQuestion()"
+                  class="touch-target px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display text-lg font-bold shadow-md">
+                  ${idx < qs.questions.length - 1 ? 'Soal Berikutnya ➡️' : 'Selesai & Lihat Hasil 🏆'}
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 7: HASIL BELAJAR & PENGHARGAAN --- */
+    function renderHasil() {
+      const qs = appState.quizState;
+      const totalBenar = qs.finished ? Math.round(qs.score / 10) : 0;
+      const totalSalah = qs.finished ? (10 - totalBenar) : 0;
+
+      let badgeTitle = 'Penjelajah Ilmu Semangat!';
+      let badgeEmoji = '🌟';
+      let badgeDesc = 'Teruslah berlatih membaca materi agar pemahamanmu semakin kuat!';
+      let recommendHTML = `
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 text-left">
+          <p class="font-bold text-amber-900">💡 Rekomendasi Belajar:</p>
+          <p class="text-sm text-slate-700 mt-1">Yuk buka kembali menu <strong>📖 Materi</strong> (Fathu Makkah & Haji Wada), lalu coba ulangi kuis untuk meraih nilai terbaik!</p>
+        </div>
+      `;
+
+      if (qs.score >= 80) {
+        badgeTitle = 'Luar Biasa! Teladan Muda!';
+        badgeEmoji = '🏆';
+        badgeDesc = 'MasyaAllah! Kamu sudah memahami kisah Fathu Makkah, Haji Wada, dan hikmahnya dengan sangat baik.';
+        recommendHTML = `
+          <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 text-left">
+            <p class="font-bold text-emerald-900">✨ Langkah Selanjutnya:</p>
+            <p class="text-sm text-slate-700 mt-1">Praktikkan akhlak menepati janji, memaafkan, dan rendah hati di rumah maupun sekolah setiap hari!</p>
+          </div>
+        `;
+      } else if (qs.score >= 60) {
+        badgeTitle = 'Hebat! Terus Tingkatkan!';
+        badgeEmoji = '🎖️';
+        badgeDesc = 'Bagus sekali! Sebagian besar materi sudah kamu kuasai dengan baik.';
+      }
+
+      return `
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border-4 border-amber-400 shadow-lg text-center space-y-5">
+            <div class="flex justify-center items-center gap-3">
+              ${getMascotSVG('zaid', 'proud', 'w-20 h-20')}
+              <div class="text-6xl">${badgeEmoji}</div>
+              ${getMascotSVG('zahra', 'proud', 'w-20 h-20')}
+            </div>
+
+            <div>
+              <span class="px-4 py-1 rounded-full bg-amber-400 text-slate-950 font-extrabold text-xs uppercase">Pencapaian Belajar Bab 5</span>
+              <h2 class="font-display text-3xl font-bold text-slate-800 mt-2">${badgeTitle}</h2>
+              <p class="text-slate-600 mt-1">${badgeDesc}</p>
+            </div>
+
+            ${qs.finished ? `
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                <div class="p-4 rounded-2xl bg-sky-50 border-2 border-sky-200">
+                  <p class="text-xs font-bold text-sky-700 uppercase">Nilai Kuis</p>
+                  <p class="font-display text-3xl font-bold text-sky-950">${qs.score}</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
+                  <p class="text-xs font-bold text-emerald-700 uppercase">Benar</p>
+                  <p class="font-display text-3xl font-bold text-emerald-900">${totalBenar}</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-rose-50 border-2 border-rose-200">
+                  <p class="text-xs font-bold text-rose-700 uppercase">Salah</p>
+                  <p class="font-display text-3xl font-bold text-rose-900">${totalSalah}</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-amber-50 border-2 border-amber-200">
+                  <p class="text-xs font-bold text-amber-800 uppercase">Waktu</p>
+                  <p class="font-display text-2xl sm:text-3xl font-bold text-amber-950">${formatDuration(qs.elapsedSeconds)}</p>
+                </div>
+              </div>
+              ${recommendHTML}
+            ` : `
+              <div class="p-5 rounded-2xl bg-sky-50 border-2 border-sky-200 space-y-3">
+                <p class="font-bold text-sky-900">Kamu belum menyelesaikan Kuis Akhir (10 Soal).</p>
+                <button onclick="goToPage('kuis')" class="touch-target px-6 py-3 rounded-2xl bg-amber-400 text-slate-950 font-bold shadow">
+                  ❓ Kerjakan Kuis Sekarang
+                </button>
+              </div>
+            `}
+
+            <!-- Ringkasan Materi Bab 5 -->
+            <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-left space-y-2">
+              <h3 class="font-display text-lg font-bold text-slate-800">📌 Rangkuman Inti Bab 5:</h3>
+              <ul class="text-sm sm:text-base text-slate-700 list-disc pl-5 space-y-1">
+                <li><strong>Tahun 6 H:</strong> Terjadi Perjanjian Hudaibiyah antara muslimin Madinah dan Kaum Quraisy.</li>
+                <li><strong>Tahun 8 H:</strong> Terjadi <em>Fathu Makkah</em> (terbukanya Kota Makkah secara damai tanpa perang).</li>
+                <li><strong>Tahun 10 H:</strong> Terjadi <em>Haji Wada</em> (haji perpisahan) dan turunnya Q.S. Al-Ma'idah ayat 3.</li>
+                <li><strong>Teladan Utama:</strong> Menepati janji, pemaaf, kasih sayang, rendah hati, dan menjaga persaudaraan.</li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+              <button onclick="startQuiz()" class="touch-target px-5 py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold shadow">
+                🔄 Ulangi Kuis
+              </button>
+              <button onclick="goToPage('refleksi')" class="touch-target px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow">
+                💭 Lanjut ke Refleksi Diri ➡️
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 8: REFLEKSI DIRI & PENUTUP MOTIVASI --- */
+    function setReflectionMood(mood) {
+      appState.reflection.mood = mood;
+      saveState();
+      renderPage();
+    }
+
+    function submitReflection(ev) {
+      ev.preventDefault();
+      appState.reflection.liked = document.getElementById('ref-liked').value.trim();
+      appState.reflection.difficult = document.getElementById('ref-diff').value.trim();
+      appState.reflection.nextStep = document.getElementById('ref-next').value.trim();
+      if (!appState.reflection.submitted) {
+        appState.reflection.submitted = true;
+        addStars(20);
+      }
+      saveState();
+      renderPage();
+      showModal('💖', 'Terima Kasih Atas Refleksimu!', 'Jawaban refleksimu telah tersimpan. Semoga Allah Swt. memudahkanmu meneladani akhlak Rasulullah saw. setiap hari! (+20 Bintang)');
+    }
+
+    function resetAllProgress() {
+      showModal(
+        '🔄',
+        'Ulangi Media dari Awal?',
+        'Semua skor, bintang, dan jawaban kuis akan diatur ulang ke awal agar kamu bisa belajar kembali.',
+        `
+          <button onclick="closeModal()" class="touch-target px-5 py-3 rounded-2xl bg-slate-200 text-slate-800 font-bold">Batal</button>
+          <button onclick="confirmResetAll()" class="touch-target px-5 py-3 rounded-2xl bg-rose-600 text-white font-bold">Ya, Ulangi Media</button>
+        `
+      );
+    }
+
+    function confirmResetAll() {
+      localStorage.removeItem(STORAGE_KEY);
+      closeModal();
+      location.reload();
+    }
+
+    function renderRefleksi() {
+      const moods = [
+        { id: 'senang', emoji: '😄', label: 'Sangat Senang' },
+        { id: 'semangat', emoji: '🤩', label: 'Bersemangat' },
+        { id: 'tenang', emoji: '😊', label: 'Tenang & Paham' },
+        { id: 'bingung', emoji: '🤔', label: 'Perlu Mengulang' }
+      ];
+
+      return `
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-sky-200 shadow-sm space-y-6">
+            <div class="flex items-center gap-4">
+              ${getMascotSVG('zahra', 'happy', 'w-20 h-20')}
+              <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">💭 Refleksi Peserta Didik</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Ceritakan perasaan dan pengalaman belajarmu hari ini ya!</p>
+              </div>
+            </div>
+
+            <form onsubmit="submitReflection(event)" class="space-y-5">
+              <!-- Pilih Perasaan -->
+              <div>
+                <label class="block font-bold text-slate-800 mb-2">1. Bagaimana perasaanmu setelah mempelajari Bab 5 ini?</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  ${moods.map(m => {
+                    const active = appState.reflection.mood === m.id;
+                    return `
+                      <button type="button" onclick="setReflectionMood('${m.id}')"
+                        class="touch-target p-3.5 rounded-2xl border-2 flex flex-col items-center justify-center gap-1 transition-all
+                        ${active ? 'bg-amber-100 border-amber-500 scale-105 font-bold' : 'bg-slate-50 border-slate-200 hover:bg-sky-50'}">
+                        <span class="text-3xl">${m.emoji}</span>
+                        <span class="text-xs sm:text-sm">${m.label}</span>
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <div>
+                <label for="ref-liked" class="block font-bold text-slate-800 mb-1.5">2. Apa bagian yang paling kamu sukai dari pembelajaran ini?</label>
+                <input id="ref-liked" type="text" required value="${appState.reflection.liked}"
+                  placeholder="Contoh: Kisah Fathu Makkah yang damai dan game kata..."
+                  class="w-full p-3.5 rounded-2xl border-2 border-slate-300 focus:border-emerald-500 focus:outline-none bg-slate-50" />
+              </div>
+
+              <div>
+                <label for="ref-diff" class="block font-bold text-slate-800 mb-1.5">3. Bagian mana yang masih terasa sulit atau ingin dipelajari lebih lanjut?</label>
+                <input id="ref-diff" type="text" required value="${appState.reflection.difficult}"
+                  placeholder="Contoh: Menghafal urutan isi Perjanjian Hudaibiyah..."
+                  class="w-full p-3.5 rounded-2xl border-2 border-slate-300 focus:border-emerald-500 focus:outline-none bg-slate-50" />
+              </div>
+
+              <div>
+                <label for="ref-next" class="block font-bold text-slate-800 mb-1.5">4. Perilaku terpuji apa yang akan segera kamu lakukan di rumah atau sekolah?</label>
+                <input id="ref-next" type="text" required value="${appState.reflection.nextStep}"
+                  placeholder="Contoh: Selalu menepati janji dan mudah memaafkan teman..."
+                  class="w-full p-3.5 rounded-2xl border-2 border-slate-300 focus:border-emerald-500 focus:outline-none bg-slate-50" />
+              </div>
+
+              <button type="submit" class="touch-target w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display text-lg font-bold shadow-md">
+                💾 Simpan Refleksi Saya
+              </button>
+            </form>
+          </div>
+
+          <!-- Kartu Penutup & Motivasi -->
+          <div class="rounded-3xl bg-gradient-to-r from-emerald-700 to-sky-700 text-white p-6 sm:p-8 border-4 border-amber-400 shadow-xl flex flex-col md:flex-row items-center gap-6">
+            ${getMascotSVG('zaid', 'proud', 'w-28 h-28')}
+            <div class="space-y-3 text-center md:text-left">
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-amber-300">Selamat, Kamu Anak Hebat! 🌟</h3>
+              <p class="text-emerald-50 text-base leading-relaxed">
+                "Sesungguhnya orang yang kuat bukanlah yang pandai bergulat, melainkan orang yang mampu menahan dirinya ketika marah." Jadilah anak saleh dan salehah yang menebarkan kasih sayang seperti Rasulullah saw.!
+              </p>
+              <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
+                <button onclick="goToPage('beranda')" class="touch-target px-5 py-3 rounded-2xl bg-amber-400 text-slate-950 font-bold shadow">
+                  🏠 Kembali ke Beranda
+                </button>
+                <button onclick="resetAllProgress()" class="touch-target px-5 py-3 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-bold border border-white/40">
+                  🔄 Ulangi Media
+                </button>
+              </div>
+              <p class="text-xs text-emerald-200 pt-2">
+                Media Pembelajaran Interaktif PAI Kelas 5 Bab 5 • Disusun oleh <strong>Abu Rahmi</strong> (2026)
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* --- HALAMAN 9: PETUNJUK PENGGUNAAN MEDIA --- */
+    function renderPetunjuk() {
+      const guides = [
+        { icon: '🏠', title: 'Beranda', desc: 'Halaman sampul utama dan informasi tujuan pembelajaran Bab 5.' },
+        { icon: '📖', title: 'Materi', desc: 'Berisi pertanyaan pemantik, video pembelajaran, dan ringkasan cerita Fathu Makkah, Haji Wada, serta hikmahnya.' },
+        { icon: '🎯', title: 'Aktivitas', desc: 'Latihan interaktif mengelompokkan peristiwa dengan cara seret-lepas (drag & drop) atau ketuk kartu.' },
+        { icon: '🎮', title: 'Game', desc: 'Permainan edukatif mencari 8 kata kunci tersembunyi di papan huruf untuk menambah poin bintang.' },
+        { icon: '📝', title: 'Latihan', desc: '4 soal latihan terbimbing dengan petunjuk korektif langsung jika jawabanmu belum tepat.' },
+        { icon: '❓', title: 'Kuis', desc: '10 soal evaluasi akhir yang diacak otomatis lengkap dengan penghitung waktu dan pembahasan.' },
+        { icon: '🏆', title: 'Hasil', desc: 'Menampilkan skor akhir, penghargaan lencana (badge), dan rangkuman materi.' },
+        { icon: '💭', title: 'Refleksi', desc: 'Ruang untuk mengungkapkan perasaanmu setelah belajar dan komitmen perilaku terpuji.' }
+      ];
+
+      return `
+        <div class="max-w-4xl mx-auto space-y-6">
+          <div class="bg-white rounded-3xl p-6 border-2 border-amber-300 flex flex-col sm:flex-row items-center gap-4">
+            ${getMascotSVG('zaid', 'happy', 'w-20 h-20')}
+            <div>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">📋 Petunjuk Penggunaan Media</h2>
+              <p class="text-slate-600">Panduan mudah untuk murid dan guru menggunakan media di layar interaktif (FID), laptop, maupun smartphone.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            ${guides.map(g => `
+              <div class="bg-white p-5 rounded-3xl border-2 border-slate-200 flex items-start gap-3.5 shadow-sm">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-2xl flex items-center justify-center shrink-0">
+                  ${g.icon}
+                </div>
+                <div>
+                  <h3 class="font-display text-xl font-bold text-slate-800">${g.title}</h3>
+                  <p class="text-slate-600 text-sm sm:text-base mt-0.5">${g.desc}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="bg-sky-50 border-2 border-sky-200 rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sky-950 font-semibold text-sm sm:text-base">
+              🔊 <strong>Fitur Narasi Suara:</strong> Tekan tombol <strong>"Bacakan"</strong> di pojok kanan atas kapan saja untuk mendengarkan teks materi dibacakan!
+            </p>
+            <button onclick="goToPage('materi')" class="touch-target px-6 py-3 rounded-2xl bg-amber-400 text-slate-950 font-bold shadow shrink-0">
+              Mulai Belajar ➡️
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ==========================================================================
+       6. INISIALISASI APLIKASI
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      renderPage();
+      if (appState.quizState.started && !appState.quizState.finished) {
+        startQuizTimer();
+      }
+    });
+  </script>
+</body>
+</html>
